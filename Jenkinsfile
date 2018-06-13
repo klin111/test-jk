@@ -8,10 +8,12 @@ pipeline {
   stages {
     stage('git') {
       steps {
-        dir(path: '/home/leo/test-git') {
-          git(changelog: true, url: 'https://github.com/klin111/test-jk', poll: true)
+        dir(path: '/home/root/pyshell') {
+          git 'https://github.com/klin111/test-jk.git'
         }
 
+        sh 'sudo -H pip -r requirements.txt'
+        sh 'python app.py'
       }
     }
   }
