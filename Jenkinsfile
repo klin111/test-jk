@@ -8,11 +8,17 @@ pipeline {
   stages {
     stage('git') {
       steps {
-        dir(path: '/home/root/pyshell') {
-          git 'https://github.com/klin111/test-jk.git'
-        }
-
-        sh 'sudo -H pip -r requirements.txt'
+        dir(path: '/home/root/jenkins')
+        git(url: 'https://github.com/klin111/test-jk.git', changelog: true, poll: true)
+      }
+    }
+    stage('build') {
+      steps {
+        sh 'sudo -H pip install -r requirements.txt'
+      }
+    }
+    stage('run') {
+      steps {
         sh 'python app.py'
       }
     }
